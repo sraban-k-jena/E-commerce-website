@@ -34,3 +34,21 @@ This project is a backend system for an e-commerce website, providing user and s
 - **MySQL** - Database
 - **JWT (JSON Web Token)** - For secure token-based authentication
 - **Maven** - For dependency management
+
+
+# Database Configuration
+- spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce_website_db
+- spring.datasource.username=<your-database-username>
+- spring.datasource.password=<your-database-password>
+
+- spring.jpa.hibernate.ddl-auto=update
+- spring.jpa.show-sql=true
+
+# JWT Secret Key
+- jwt.secret=<your-jwt-secret-key>
+
+# Email SMTP Configuration
+- spring.mail.host=<smtp-host>
+- spring.mail.port=<smtp-port>
+- spring.mail.username=<email-username>
+- spring.mail.password=<email-password>
