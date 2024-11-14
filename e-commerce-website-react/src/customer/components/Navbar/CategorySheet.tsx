@@ -1,48 +1,57 @@
-import React from 'react'
-import menLevelTwo from '../../../data/category/level two/menLevelTwo'
-import womenLevelTwo from '../../../data/category/level two/womenLevelTwo'
-import electronicsLevelTwo from '../../../data/category/level two/electronicsLevelTwo'
-import fornitureLevelTwo from '../../../data/category/level two/fornitureLevelTwo'
-import menLevelThree from '../../../data/category/level three/menLevelThree'
-import womenLevelThree from '../../../data/category/level three/womenLevelThree'
-import electronicsLevelThree from '../../../data/category/level three/electronicsLevelThree'
-import fornitureLevelThree from '../../../data/category/level three/fornitureLevelThree'
-import { Box } from '@mui/material'
+import React from 'react';
+import { menLevelTwo } from '../../../data/category/level two/menLevelTwo';
+import { womenLevelTwo } from '../../../data/category/level two/womenLevelTwo';
+import { electronicsLevelTwo } from '../../../data/category/level two/electronicsLevelTwo';
+import { fornitureLevelTwo } from '../../../data/category/level two/fornitureLevelTwo';
+import { menLevelThree } from '../../../data/category/level three/menLevelThree';
+import { womenLevelThree } from '../../../data/category/level three/womenLevelThree';
+import { electronicsLevelThree } from '../../../data/category/level three/electronicsLevelThree';
+import { fornitureLevelThree } from '../../../data/category/level three/fornitureLevelThree';
+import { Box } from '@mui/material';
 
-const categoryTwo = {
-    men : menLevelTwo,
-    women : womenLevelTwo,
-    electronics : electronicsLevelTwo,
-    home_furniture : fornitureLevelTwo
-}
+const categoryTwo:{[key:string]:any[]} = {
+  men: menLevelTwo,
+  women: womenLevelTwo,
+  electronics: electronicsLevelTwo,
+  home_furniture: fornitureLevelTwo,
+};
 
-const categoryThree = {
-    men : menLevelThree,
-    women : womenLevelThree,
-    electronics : electronicsLevelThree,
-    home_furniture : fornitureLevelThree
-}
+const categoryThree:{[key:string]:any[]} = {
+  men: menLevelThree,
+  women: womenLevelThree,
+  electronics: electronicsLevelThree,
+  home_furniture: fornitureLevelThree,
+};
 
-const CategorySheet = () => {
+const CategorySheet = ({selectedCategory,setShowSheet}:any) => {
+    const childCategory = (category:any,parentCategoryId:any)=>{
+        return category.filter((child:any)=>child.parentCategoryId==parentCategoryId)
+    }
   return (
-    <Box className="bg-white shadow-lg lg:h-[500px] overflow-y-auto">
-        <div className='flex text-sm flex-wrap'>
-            {/* {
-                categoryTwo["men"]?.map((item)=><div>
-                <p className='text-primary-color mb-5 font-semibold'>{item.name}</p>
-                </div>)
-            } */}
-            {
-    categoryTwo["men"]?.map((item, index) => (
-        <div key={index}>
-            <p className='text-primary-color mb-5 font-semibold'>{item.name}</p>
-        </div>
-    ))
-}
-
-        </div>
+    <Box sx={
+        {zIndex : 2}
+    } className="bg-white shadow-lg lg:h-[500px] overflow-y-auto">
+      <div className="flex text-sm flex-wrap">
+        {
+            categoryTwo[selectedCategory]?.map((item, index) => 
+                <div
+                  className={`p-8 lg:w-[20%] ${index % 2 === 0 ? "bg-slate-50" : "bg-white"}`}
+                >
+            <p className="text-primary-color mb-5 font-semibold">
+              {item.name}
+            </p>
+            <ul className='space-y-3'>
+                {childCategory(categoryThree[selectedCategory],item.categoryId).map((item:any)=><div>
+                    <li className='hover:text-primary-color cursor-pointer'>
+                    {item.name}
+                </li>
+                </div>)}
+            </ul>
+          </div>
+        )}
+      </div>
     </Box>
-  )
-}
+  );
+};
 
-export default CategorySheet
+export default CategorySheet;
